@@ -11,6 +11,7 @@ const luc = wallet.create();
 
 const blockchain = [];
 
+// First Block pushed into the blockchain
 blockchain.push(
     new Block({
         parentHash:   null,
@@ -19,7 +20,8 @@ blockchain.push(
         transactions: [],
     }).mine(),
 );
-console.log(blockchain[0].hash());
+
+// Second Block pushed into the blockchain
 blockchain.push(
     new Block({
         parentHash:   blockchain[blockchain.length - 1].hash(),

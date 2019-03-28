@@ -1,0 +1,25 @@
+{
+  "name": "bitcesy",
+  "version": "1.0.0",
+  "description": "basic cryptocurrency in JS",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cesarecamurani/BitCesy.git"
+  },
+  "keywords": [
+    "money"
+  ],
+  "author": "cesarecamurani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cesarecamurani/BitCesy/issues"
+  },
+  "homepage": "https://github.com/cesarecamurani/BitCesy#readme"
+}

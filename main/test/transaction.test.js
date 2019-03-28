@@ -2,11 +2,11 @@ const { verify, check, xcheck, group, beforeAll } = require('janus');
 const { createSign, createVerify } = require('crypto');
 const sign = require('./helpers/sign');
 const certify = require('./helpers/certify');
-const wallet = require('../src/wallet');
+const { Wallet } = require('../src/wallet');
 const { Transaction } = require('../src/transaction');
 
-const ces = wallet.create();
-const luc = wallet.create();
+const ces = Wallet.create();
+const luc = Wallet.create();
 
 const transactionOne = new Transaction({
     from:  ces.publicKey,

@@ -32,5 +32,5 @@ class Wallet {
   }
 };
 
-const wallet = new Wallet
-module.exports = wallet
+const wallet = new Wallet();
+module.exports = wallet;

@@ -28,6 +28,3 @@ const Transaction = exports.Transaction = class Transaction {
     return signature.verify(cert, this.signature, 'hex');
   }
 }
-
-// const transaction = new Transaction();
-// module.exports = transaction;

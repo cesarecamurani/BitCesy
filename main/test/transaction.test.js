@@ -29,7 +29,6 @@ const transactionThree = new Transaction({
     value: 15,
 }).sign(luc.privateKey);
 
-
 group('Transaction', () => {
   group('method: sign', () => {
     check('Order has a valid signature', () => {

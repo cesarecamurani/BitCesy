@@ -1,31 +1,35 @@
-const { verify, check, xcheck, group, beforeAll } = require('janus6');
+import janus6 from 'janus6';
+import { verify } from 'janus6';
 const { createSign, createVerify } = require('crypto');
 const sign = require('./helpers/sign');
 const certify = require('./helpers/certify');
-const { Wallet } = require('../src/wallet');
-const { Transaction } = require('../src/transaction');
-const { Block } = require('../src/block');
-const { State } = require('../src/state');
-const { Blockchain } = require('../src/blockchain');
+import Wallet from '../src/wallet'
+import Transaction from '../src/transaction'
+import Block from '../src/block'
+import State from '../src/state'
+import Blockchain from '../src/blockchain'
 
-const ces = Wallet.create();
-const luc = Wallet.create();
+let cesWallet = new Wallet()
+let lucWallet = new Wallet()
 
-const chain = new Blockchain();
+let ces = cesWallet.create();
+let luc = lucWallet.create();
 
-group('Blockchain', () => {
-  group('method: mine', () => {
-    group('before transaction', () => {
-      check('After mining genesis block ces balance should be 50', () => {
+let chain = new Blockchain();
+
+janus6.group('Blockchain', () => {
+  janus6.group('method: mine', () => {
+  janus6.group('before transaction', () => {
+      janus6.check('After mining genesis block ces balance should be 50', () => {
         chain.mine(ces.publicKey);
         verify.same(chain.balance(ces.publicKey), 50);
       })
-      check('After mining genesis block luc balance should be 0', () => {
+      janus6.check('After mining genesis block luc balance should be 0', () => {
         verify.same(chain.balance(luc.publicKey), 0);
       })
     })
-    group('after transaction', () => {
-      check('After mining 2nd block (with transaction) ces balance should be 35', () => {
+    janus6.group('after transaction', () => {
+      janus6.check('After mining 2nd block (with transaction) ces balance should be 35', () => {
         chain.mine(ces.publicKey, [
             new Transaction({
                 from: ces.publicKey,
@@ -36,7 +40,7 @@ group('Blockchain', () => {
         ]);
         verify.same(chain.balance(ces.publicKey), 85);
       })
-      check('After mining 2nd block (with transaction) luc balance should be 15', () => {
+      janus6.check('After mining 2nd block (with transaction) luc balance should be 15', () => {
         verify.same(chain.balance(luc.publicKey), 15);
       })
     })

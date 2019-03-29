@@ -2,7 +2,7 @@ const {createHash, createECDH, createSign, createVerify} = require('crypto');
 const CONFIG = exports.CONFIG = ({BLOCK_DIFFICULTY: 2, BLOCK_REWARD: 50});
 const { Wallet } = require('./wallet');
 
-const Transaction = exports.Transaction = class Transaction {
+class Transaction {
 
   constructor(opts={}) {
     Object.assign(this, {
@@ -28,3 +28,4 @@ const Transaction = exports.Transaction = class Transaction {
     return signature.verify(cert, this.signature, 'hex');
   }
 }
+export default Transaction

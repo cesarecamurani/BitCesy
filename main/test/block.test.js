@@ -1,13 +1,16 @@
-const { verify, check, xcheck, group, beforeAll } = require('janus6');
+import janus6 from 'janus6';
+import { verify } from 'janus6';
 const { createSign, createVerify } = require('crypto');
 const sign = require('./helpers/sign');
 const certify = require('./helpers/certify');
-const { Wallet } = require('../src/wallet');
-const { Transaction } = require('../src/transaction');
-const { Block } = require('../src/block');
+import Wallet from '../src/wallet'
+import Transaction from '../src/transaction'
+import Block from '../src/block'
 
-const ces = Wallet.create();
-const luc = Wallet.create();
+let cesWallet = new Wallet()
+let lucWallet = new Wallet()
+const ces = cesWallet.create();
+const luc = lucWallet.create();
 
 const blockchain = [];
 
@@ -36,12 +39,12 @@ blockchain.push(
     }).mine(),
 );
 
-group('Block', () => {
-  group('method: mine', () => {
-    check('First block hash begins with a double zero', () => {
+janus6.group('Block', () => {
+  janus6.group('method: mine', () => {
+    janus6.check('First block hash begins with a double zero', () => {
       verify.same(blockchain[0].hash().substr(0, 2), "00");
     })
-    check('Second block hash begins with a double zero', () => {
+    janus6.check('Second block hash begins with a double zero', () => {
       verify.same(blockchain[1].hash().substr(0, 2), "00");
     })
   })

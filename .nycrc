@@ -1,0 +1,6 @@
+{
+  "exclude": [
+    "janus/src/matchers/*.js",
+    "janus/src/index.js"
+  ]
+}

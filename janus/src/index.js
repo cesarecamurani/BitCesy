@@ -75,9 +75,9 @@ Object.assign(verify, matchers);
 const report = () => {
   log(`\n${repeat('.', 60)}\n`);
   log('Report:\n');
-  log(`  Success: ${summary.success}`.green);
-  log(`  Fail: ${summary.fail}`.red);
-  log(`  Not Checked: ${summary.disabled}\n\n`.yellow);
+  log(`  Passed: ${summary.success}`.green);
+  log(`  Failed: ${summary.fail}`.red);
+  log(`  Not Checked: ${summary.disabled}\n\n`.white);
 
   if (summary.fail > 0) process.exit(1);
   process.exit(0);

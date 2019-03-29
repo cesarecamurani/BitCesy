@@ -37,6 +37,7 @@ blockchain.push(
         ],
     }).mine(),
 );
+
 group('Block', () => {
   group('method: mine', () => {
     check('First block hash begins with a double zero', () => {

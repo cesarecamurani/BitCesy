@@ -32,6 +32,3 @@ const Block = exports.Block = class Block {
     return this.hash().startsWith(mask);
   }
 }
-
-// const block = new Block();
-// module.exports = block;

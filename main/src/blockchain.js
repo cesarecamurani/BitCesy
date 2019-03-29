@@ -1,5 +1,7 @@
 const {createHash, createECDH, createSign, createVerify} = require('crypto');
-const CONFIG = exports.CONFIG = ({BLOCK_DIFFICULTY: 2, BLOCK_REWARD: 100});
+const CONFIG = exports.CONFIG = ({BLOCK_DIFFICULTY: 2, BLOCK_REWARD: 50});
+const { Wallet } = require('../src/wallet');
+const { Transaction } = require('../src/transaction');
 const {Block} = require('./block');
 const {State} = require('./state');
 
@@ -16,7 +18,7 @@ const Blockchain = exports.Blockchain = class Blockchain {
     if (tx.value <= 0 || sender.value < tx.value) throw Error('Bad value.');
     if (tx.nonce <  0 || sender.nonce > tx.nonce) throw Error('Bad nonce.');
     if (prev && prev.nonce > tx.nonce) throw Error('Bad nonce order.');
-    if (!tx.test()) throw Error('Transaction is not signed properly.');
+    if (!tx.certify()) throw Error('Transaction is not signed properly.');
     return state.with(tx);
   }
 

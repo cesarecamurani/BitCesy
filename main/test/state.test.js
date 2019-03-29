@@ -18,13 +18,13 @@ state = state.with(new Block({miner: 'ces'}));
 
 group('State', () => {
   group('method: with', () => {
-    check('In this State ces balance after transaction is 50', () => {
+    check('In this State ces balance after transaction is 10', () => {
       state = state.with(new Transaction({from: 'ces', to: 'luc', value: 40, nonce: 0}));
-      verify.same(state['wallets']['ces']['value'], 60);
+      verify.same(state['wallets']['ces']['value'], 10);
     })
-    check('In this State ces balance after transaction is 80', () => {
+    check('In this State ces balance after transaction is 30', () => {
       state = state.with(new Transaction({from: 'luc', to: 'ces', value: 20, nonce: 0}));
-      verify.same(state['wallets']['ces']['value'], 80);
+      verify.same(state['wallets']['ces']['value'], 30);
     })
   })
 });

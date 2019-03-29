@@ -13,6 +13,7 @@ const luc = Wallet.create();
 const blockchain = [];
 
 let state = new State();
+
 state = state.with(new Block({miner: 'ces'}));
 
 group('State', () => {

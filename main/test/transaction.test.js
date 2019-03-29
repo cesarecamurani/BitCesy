@@ -1,4 +1,4 @@
-const { verify, check, xcheck, group, beforeAll } = require('janus');
+const { verify, check, xcheck, group, beforeAll } = require('janus6');
 const { createSign, createVerify } = require('crypto');
 const sign = require('./helpers/sign');
 const certify = require('./helpers/certify');
@@ -7,6 +7,8 @@ const { Transaction } = require('../src/transaction');
 
 const ces = Wallet.create();
 const luc = Wallet.create();
+
+let transaction = new Transaction()
 
 const transactionOne = new Transaction({
     from:  ces.publicKey,
@@ -34,7 +36,7 @@ group('Transaction', () => {
     check('Order has a valid signature', () => {
       const orderOne = 'send mille lire from cesare to luca';
       const orderOneIssuer = ces.publicKey;
-      const orderOneSignature = sign(orderOne, orderOneIssuer, ces.privateKey);
+      const orderOneSignature = transaction.sign(orderOne, orderOneIssuer, ces.privateKey);
       verify.isTrue(certify(orderOne, orderOneIssuer, orderOneSignature));
     })
     check('Order has a fraud signature', () => {

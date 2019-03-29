@@ -25,7 +25,8 @@
   "homepage": "https://github.com/cesarecamurani/BitCesy#readme",
   "dependencies": {
     "colors": "^1.3.3",
-    "crypto-js": "^3.1.9-1"
+    "crypto-js": "^3.1.9-1",
+    "janus6": "^1.0.0"
   },
   "devDependencies": {
     "nyc": "^13.3.0"

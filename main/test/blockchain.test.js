@@ -1,4 +1,4 @@
-const { verify, check, xcheck, group, beforeAll } = require('janus');
+const { verify, check, xcheck, group, beforeAll } = require('janus6');
 const { createSign, createVerify } = require('crypto');
 const sign = require('./helpers/sign');
 const certify = require('./helpers/certify');

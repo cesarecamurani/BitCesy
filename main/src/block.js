@@ -46,9 +46,10 @@ class Block {
       if (block.test()) return block;
     }
   }
-  // it checks the block authenticity 
+  // it checks the block authenticity
   test() {
     const mask = '0'.repeat(CONFIG.BLOCK_DIFFICULTY);
+    // checks if the stringified hash starts with the mask(00)
     return this.hash().startsWith(mask);
   }
 }

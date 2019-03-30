@@ -1,4 +1,4 @@
-const janus6 = require('janus6');
+import janus6 from 'janus6';
 
 require('./wallet.test');
 require('./block.test');

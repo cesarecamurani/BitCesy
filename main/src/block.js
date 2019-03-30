@@ -1,7 +1,7 @@
-const {createHash, createECDH, createSign, createVerify} = require('crypto');
+import {createHash, createECDH, createSign, createVerify} from 'crypto';
 const CONFIG = exports.CONFIG = ({BLOCK_DIFFICULTY: 2, BLOCK_REWARD: 50});
 
-const Block = exports.Block = class Block {
+class Block {
   constructor(opts={}) {
     Object.assign(this, {
         parentHash: null,
@@ -30,3 +30,4 @@ const Block = exports.Block = class Block {
     return this.hash().startsWith(mask);
   }
 }
+export default Block

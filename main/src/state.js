@@ -1,9 +1,9 @@
-const {createHash, createECDH, createSign, createVerify} = require('crypto');
+import {createHash, createECDH, createSign, createVerify} from 'crypto';
 const CONFIG = exports.CONFIG = ({BLOCK_DIFFICULTY: 2, BLOCK_REWARD: 50});
-const {Wallet} = require('./wallet');
-const {Transaction} = require('./transaction');
+import Wallet from '../src/wallet';
+import Transaction from '../src/transaction';
 
-const State = exports.State = class State {
+class State {
 
   constructor(opts={}) {
     Object.assign(this, {wallets: {}}, opts);
@@ -32,3 +32,4 @@ const State = exports.State = class State {
     }
   }
 }
+export default State

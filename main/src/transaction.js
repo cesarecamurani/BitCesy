@@ -1,6 +1,8 @@
-const {createHash, createECDH, createSign, createVerify} = require('crypto');
+import {createHash, createECDH, createSign, createVerify} from 'crypto';
 const CONFIG = exports.CONFIG = ({BLOCK_DIFFICULTY: 2, BLOCK_REWARD: 50});
-const { Wallet } = require('./wallet');
+import  Wallet from './wallet';
+
+const wallet = new Wallet();
 
 class Transaction {
 
@@ -16,13 +18,13 @@ class Transaction {
   }
 
   sign(privateKey) {
-    const cert = Wallet.getNodePrivateKey(this.from, privateKey);
+    const cert = wallet.getNodePrivateKey(this.from, privateKey);
     const signature = createSign('SHA256').update(this.hash()).sign(cert, 'hex');
     return new Transaction({...this, signature});
   }
 
   certify() {
-    const cert = Wallet.getNodePublicKey(this.from);
+    const cert = wallet.getNodePublicKey(this.from);
     const signature = createVerify('SHA256').update(this.hash());
     if (!(this.from) || !(this.signature))  return false;
     return signature.verify(cert, this.signature, 'hex');

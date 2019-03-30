@@ -39,6 +39,10 @@ class Transaction {
   sign(privateKey) {
     // encrypts the private key calling getNodePrivateKey on Wallet instance
     const cert = wallet.getNodePrivateKey(this.from, privateKey);
+    /*
+    createSign creates and returns a Sign object that uses the given algorithm(SHA256).
+    .update updates the hash content with the given data which are the signed with cert in hex base.
+    */
     const signature = createSign('SHA256').update(this.hash()).sign(cert, 'hex');
     // creates a transaction updating the hash and adding the signature
     return new Transaction({...this, signature});
@@ -48,8 +52,8 @@ class Transaction {
     // encrypts the public key calling getNodePublicKey on Wallet instance
     const cert = wallet.getNodePublicKey(this.from);
     /*
-    .createVerify creates and returns a Verify object(assigned to signature in this case)
-    that uses the given algorithm(SHA256 in this case) and .update updates the hash 
+    createVerify creates and returns a Verify object(assigned to signature in this case)
+    that uses the given algorithm(SHA256 in this case) and .update updates the hash
     content with the given data
     */
     const signature = createVerify('SHA256').update(this.hash());

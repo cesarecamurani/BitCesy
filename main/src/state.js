@@ -6,6 +6,12 @@ import Transaction from '../src/transaction';
 class State {
 
   constructor(opts={}) {
+    /*
+    Object.assign() copies the values (of all enumerable own properties)
+    from one or more source objects to a target object.
+    It has a signature of Object.assign(target, ...sources).
+    The target object is the first parameter and is also used as the return value.
+    */
     Object.assign(this, {wallets: {}}, opts);
   }
 

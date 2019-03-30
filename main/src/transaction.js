@@ -35,17 +35,27 @@ class Transaction {
     */
     return createHash('SHA256').update(head).digest('hex');
   }
-
+  // .sign takes sender private key and returns a new transaction with a digital signature based on it.
   sign(privateKey) {
+    // encrypts the private key calling getNodePrivateKey on Wallet instance
     const cert = wallet.getNodePrivateKey(this.from, privateKey);
     const signature = createSign('SHA256').update(this.hash()).sign(cert, 'hex');
+    // creates a transaction updating the hash and adding the signature
     return new Transaction({...this, signature});
   }
-
+  // .certify uses sender public key to verify transaction signature status and returns it.
   certify() {
+    // encrypts the public key calling getNodePublicKey on Wallet instance
     const cert = wallet.getNodePublicKey(this.from);
+    /*
+    .createVerify creates and returns a Verify object(assigned to signature in this case)
+    that uses the given algorithm(SHA256 in this case) and .update updates the hash 
+    content with the given data
+    */
     const signature = createVerify('SHA256').update(this.hash());
+    // check on sender and signature.
     if (!(this.from) || !(this.signature))  return false;
+    // .verify verifies the provided data using the given object(cert) and signature(this.signature).
     return signature.verify(cert, this.signature, 'hex');
   }
 }

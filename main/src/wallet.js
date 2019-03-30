@@ -6,7 +6,7 @@ class Wallet {
   constructor(opts={}) {
     /*
     Object.assign() copies the values (of all enumerable own properties)
-    from one or more source objects to a target object. 
+    from one or more source objects to a target object.
     It has a signature of Object.assign(target, ...sources).
     The target object is the first parameter and is also used as the return value.
     */
@@ -28,11 +28,11 @@ class Wallet {
     */
     keypair.generateKeys();
     return new Wallet({
-      publicKey:  keypair.getPublicKey ('hex'),
+      publicKey:  keypair.getPublicKey('hex'),
       privateKey: keypair.getPrivateKey('hex'),
     });
   }
-
+  // encrypts the private key
   getNodePrivateKey(user, key) {
     const t = '308184020100301006072a8648ce3d020106052b8104000a046d306b0201010420';
     /*
@@ -42,7 +42,7 @@ class Wallet {
     const k = Buffer.from(t + key + 'a144034200' + user, 'hex').toString('base64');
     return `-----BEGIN PRIVATE KEY-----\n${k}\n-----END PRIVATE KEY-----`;
   }
-
+  // encrypts the public key
   getNodePublicKey(user) {
     const t = '3056301006072a8648ce3d020106052b8104000a034200';
     /*

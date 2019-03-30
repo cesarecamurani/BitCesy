@@ -35,12 +35,18 @@ class Block {
   }
 
   mine(min = 0, max = Number.MAX_SAFE_INTEGER) {
+    /*
+    Nonce: Number of successful transactions made by the sender before,
+    used to prevent multiple usage of the same transaction.
+    */
     for (let nonce = min; nonce <= max; nonce++) {
+      // creates a new Block.
       const block = new Block({...this, nonce});
+      // if block.test() passes returns this new Block.
       if (block.test()) return block;
     }
   }
-
+  // it checks the block authenticity 
   test() {
     const mask = '0'.repeat(CONFIG.BLOCK_DIFFICULTY);
     return this.hash().startsWith(mask);

@@ -38,11 +38,11 @@ class State {
   }
 
   with(mt) {
-    /*
-    Consumes transaction and returns updated state, increasing the sender nonce
-    with a proper coin amount transferred from one account to another.
-    */
     if (mt instanceof Transaction) {
+      /*
+      Consumes transaction and returns updated state, increasing the sender nonce
+      with a proper coin amount transferred from one account to another.
+      */
       const sender = this.wallets[mt.from] || {value: 0, nonce: 0};
       const target = this.wallets[(mt.to)] || {value: 0, nonce: 0};
       return new State({ ...this, wallets: { ...this.wallets,
@@ -50,6 +50,10 @@ class State {
         [(mt.to)]: {value: target.value + mt.value, nonce: target.nonce},
       }});
     } else {
+      /*
+      Consumes block and returns updated state,
+      with appropriate reward (CONFIG.BLOCK_REWARD) sent to the the miner account. 
+      */
       const miner = this.wallets[mt.miner] || {value: 0, nonce: 0};
       return new State({ ...this, wallets: { ...this.wallets,
         [mt.miner]: {...miner, value: miner.value + CONFIG.BLOCK_REWARD},

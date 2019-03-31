@@ -18,37 +18,47 @@ class Blockchain {
       blocks: new Array(),
     }, opts);
   }
-
-  static verifyTransaction(prev, state, tx) {
-    const sender = state.wallets[tx.from] || {value: 0};
-    if (tx.value <= 0 || sender.value < tx.value) throw Error('Bad value.');
-    if (tx.nonce <  0 || sender.nonce > tx.nonce) throw Error('Bad nonce.');
-    if (prev && prev.nonce > tx.nonce) throw Error('Bad nonce order.');
-    if (!tx.certify()) throw Error('Transaction is not signed properly.');
-    return state.with(tx);
+  /*
+  Checks sender balance and nonce, ensures that transactions are correctly ordered and
+  that current signature is valid.
+  */
+  static verifyTransaction(prev, state, transaction) {
+    const sender = state.wallets[transaction.from] || {value: 0};
+    if (transaction.value <= 0 || sender.value < transaction.value) throw Error('Bad value.');
+    if (transaction.nonce <  0 || sender.nonce > transaction.nonce) throw Error('Bad nonce.');
+    if (prev && prev.nonce > transaction.nonce) throw Error('Bad nonce order.');
+    // checks for right signature
+    if (!transaction.certify()) throw Error('Transaction is not signed properly.');
+    return state.with(transaction);
   }
-
+  /*
+  Compares block parent and state hashes with current ones,
+  checks mining status and runs verification process for its transactions.
+  */
   static verifyBlock(prev, state, block) {
-    if (prev && block.parentHash !== prev .hash()) throw Error('Bad parentHash.');
+    // checks for right parentHash
+    if (prev && block.parentHash !== prev.hash()) throw Error('Bad parentHash.');
+    // checks for right stateHash
     if (prev && block.stateHash  !== state.hash()) throw Error('Bad stateHash.' )
+    // checks for the block to be valid
     if (!block.test()) throw Error('Block is not mined properly.');
-    return block.transactions.reduce((state, tx, index) => {
+    return block.transactions.reduce((state, transaction, index) => {
       const prev = block.transactions[index - 1] || (null);
-      return Blockchain.verifyTransaction(prev, state, tx);
+      return Blockchain.verifyTransaction(prev, state, transaction);
     }, state.with(block));
   }
-
+  // Returns current account balance if it exists, returns zero balance otherwise.
   balance(address) {
     if (!this.state.wallets[address]) return (0);
     return this.state.wallets[address].value;
   }
-
+  // Verifies block and pushes it into the current blockchain by updating its state and history.
   push(block) {
     const prev = (this.blocks[this.blocks.length - 1]) || (null);
     this.state = Blockchain.verifyBlock(prev, this.state, block);
     this.blocks.push(block);
   }
-
+  // A wrapper for the previous method that automatically mines block and pushes it into the blockchain.
   mine(miner, transactions=[]) {
     const prev = (this.blocks[this.blocks.length - 1]) || (null);
     this.push(new Block({

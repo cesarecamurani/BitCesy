@@ -48,6 +48,10 @@ class Block {
   }
   // it checks the block authenticity
   test() {
+    /*
+    .repeat duplicates the string it's called on for as many times
+    as specified in the argument(in thi case BLOCK_DIFFICULTY)
+    */
     const mask = '0'.repeat(CONFIG.BLOCK_DIFFICULTY);
     // checks if the stringified hash starts with the mask(00)
     return this.hash().startsWith(mask);

@@ -38,6 +38,10 @@ class State {
   }
 
   with(mt) {
+    /*
+    Consumes transaction and returns updated state, increasing the sender nonce
+    with a proper coin amount transferred from one account to another.
+    */
     if (mt instanceof Transaction) {
       const sender = this.wallets[mt.from] || {value: 0, nonce: 0};
       const target = this.wallets[(mt.to)] || {value: 0, nonce: 0};

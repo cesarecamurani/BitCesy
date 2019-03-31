@@ -29,7 +29,7 @@ janus6.group('Blockchain', () => {
       })
     })
     janus6.group('after transaction', () => {
-      janus6.check('After mining 2nd block (with transaction) ces balance should be 35', () => {
+      janus6.check('After mining 2nd block (with transaction) ces balance should be 85', () => {
         chain.mine(ces.publicKey, [
             new Transaction({
                 from: ces.publicKey,

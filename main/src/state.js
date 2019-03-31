@@ -34,7 +34,6 @@ class State {
     and return a string based on the encoding(in this case hexadecimal).
     */
     return createHash('SHA256').update(head + tail).digest('hex');
-
   }
 
   with(mt) {
@@ -52,7 +51,7 @@ class State {
     } else {
       /*
       Consumes block and returns updated state,
-      with appropriate reward (CONFIG.BLOCK_REWARD) sent to the the miner account. 
+      with appropriate reward (CONFIG.BLOCK_REWARD) sent to the the miner account.
       */
       const miner = this.wallets[mt.miner] || {value: 0, nonce: 0};
       return new State({ ...this, wallets: { ...this.wallets,

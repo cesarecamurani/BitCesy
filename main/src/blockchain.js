@@ -42,6 +42,10 @@ class Blockchain {
     if (prev && block.stateHash  !== state.hash()) throw Error('Bad stateHash.' )
     // checks for the block to be valid
     if (!block.test()) throw Error('Block is not mined properly.');
+    console.log(block.transactions.reduce((state, transaction, index) => {
+      const prev = block.transactions[index - 1] || (null);
+      return Blockchain.verifyTransaction(prev, state, transaction);
+    }, state.with(block)))
     return block.transactions.reduce((state, transaction, index) => {
       const prev = block.transactions[index - 1] || (null);
       return Blockchain.verifyTransaction(prev, state, transaction);
@@ -54,12 +58,16 @@ class Blockchain {
   }
   // Verifies block and pushes it into the current blockchain by updating its state and history.
   push(block) {
+    // const prev is assigned to the previous block
     const prev = (this.blocks[this.blocks.length - 1]) || (null);
+    // this.state is assigned to blockchain.verifyBlock and updated 
     this.state = Blockchain.verifyBlock(prev, this.state, block);
+    // block is eventually pushed into the blockchain blocks array
     this.blocks.push(block);
   }
   // A wrapper for the previous method that automatically mines block and pushes it into the blockchain.
   mine(miner, transactions=[]) {
+    // const prev is assigned to the previous block
     const prev = (this.blocks[this.blocks.length - 1]) || (null);
     this.push(new Block({
       parentHash:   prev && prev.hash(),

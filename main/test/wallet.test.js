@@ -1,8 +1,7 @@
 import janus6 from 'janus6';
 import { verify } from 'janus6';
 import { createSign, createVerify } from 'crypto';
-import { sign } from './helpers/sign';
-import { certify } from './helpers/certify';
+
 import Wallet from '../src/wallet'
 import Transaction from '../src/transaction'
 import Block from '../src/block'

@@ -27,10 +27,12 @@ class Wallet {
     and returns the public key in the specified format and encoding
     */
     keypair.generateKeys();
+  
     return new Wallet({
       publicKey:  keypair.getPublicKey('hex'),
       privateKey: keypair.getPrivateKey('hex'),
     });
+
   }
   // encrypts the private key
   getNodePrivateKey(user, key) {
@@ -40,6 +42,7 @@ class Wallet {
     then .toString convert the result in base64
     */
     const k = Buffer.from(t + key + 'a144034200' + user, 'hex').toString('base64');
+
     return `-----BEGIN PRIVATE KEY-----\n${k}\n-----END PRIVATE KEY-----`;
   }
   // encrypts the public key
@@ -50,6 +53,7 @@ class Wallet {
     then .toString convert the result in base64
     */
     const k = Buffer.from(t + user,  'hex').toString('base64');
+
     return `-----BEGIN PUBLIC KEY-----\n${k}\n-----END PUBLIC KEY-----`;
   }
 };
